@@ -1,30 +1,64 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import AccountForm from "./components/AccountForm.vue";
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="content">
+    <div class="content__header">
+      <h1>Учётные записи</h1>
+      <button>`+`</button>
+    </div>
+    <div class="content__tip">
+      <div class="content__tip-icon">{`?`}</div>
+      <p class="content__tip-text">
+        {`Для указания нескольких меток для одной пары логин/пароль используйте
+        разделитель ;`}
+      </p>
+    </div>
+    <div class="content__main">
+      <AccountForm />
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style scoped lang="scss">
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__add-btn {
+    border: 2px solid lightblue;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  &__tip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &-icon {
+      border-radius: 50%;
+      border: 2px solid black;
+      font-size: 1.5rem;
+    }
+
+    &-text {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
 }
 </style>
