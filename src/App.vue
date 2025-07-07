@@ -3,21 +3,23 @@ import AccountForm from "./components/AccountForm.vue";
 </script>
 
 <template>
-  <div class="content">
-    <div class="content__header">
-      <h1>Учётные записи</h1>
-      <button>`+`</button>
-    </div>
-    <div class="content__tip">
-      <div class="content__tip-icon">{`?`}</div>
-      <p class="content__tip-text">
-        {`Для указания нескольких меток для одной пары логин/пароль используйте
-        разделитель ;`}
-      </p>
-    </div>
-    <div class="content__main">
-      <AccountForm />
-    </div>
+  <div class="wrapper">
+    <main class="content">
+      <div class="content__header">
+        <h1>Учётные записи</h1>
+        <button class="content__add-btn">+</button>
+      </div>
+      <div class="content__tip">
+        <div class="content__tip-icon">?</div>
+        <p class="content__tip-text">
+          Для указания нескольких меток для одной пары логин/пароль используйте
+          разделитель ;
+        </p>
+      </div>
+      <div class="content__main">
+        <AccountForm />
+      </div>
+    </main>
   </div>
 </template>
 
@@ -25,7 +27,7 @@ import AccountForm from "./components/AccountForm.vue";
 .content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 
   &__header {
     display: flex;
@@ -34,9 +36,10 @@ import AccountForm from "./components/AccountForm.vue";
   }
 
   &__add-btn {
-    border: 2px solid lightblue;
+    border: 2px solid white;
     border-radius: 5px;
-    padding: 10px;
+    width: 35px;
+    height: 35px;
   }
 
   &__tip {
@@ -46,8 +49,13 @@ import AccountForm from "./components/AccountForm.vue";
 
     &-icon {
       border-radius: 50%;
-      border: 2px solid black;
-      font-size: 1.5rem;
+      border: 2px solid white;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
     }
 
     &-text {

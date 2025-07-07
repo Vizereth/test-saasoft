@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import './style.css'
+import './style.scss'
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persistedstate';
 import App from './App.vue'
