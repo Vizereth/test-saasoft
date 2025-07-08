@@ -17,6 +17,11 @@ import AccountForm from "./components/AccountForm.vue";
         </p>
       </div>
       <div class="content__main">
+        <!-- <AccountForm
+          v-for="(form, index) in accountForms"
+          :key="form.id"
+          :initial-data="form"
+        /> -->
         <AccountForm />
       </div>
     </main>
@@ -35,12 +40,12 @@ import AccountForm from "./components/AccountForm.vue";
     gap: 10px;
 
     h1 {
-        font-size: 2rem;
+      font-size: 2rem;
     }
   }
 
   &__add-btn {
-    border: 2px solid white;
+    border: 2px solid rgba(0, 0, 0, 0.6);
     border-radius: 5px;
     width: 35px;
     height: 35px;
@@ -53,7 +58,7 @@ import AccountForm from "./components/AccountForm.vue";
 
     &-icon {
       border-radius: 50%;
-      border: 2px solid white;
+      border: 2px solid rgba(0, 0, 0, 0.6);
       font-size: 1.1rem;
       display: flex;
       align-items: center;
@@ -63,7 +68,7 @@ import AccountForm from "./components/AccountForm.vue";
     }
 
     &-text {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
   }
 

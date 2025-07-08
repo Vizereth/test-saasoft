@@ -21,41 +21,73 @@ const form = reactive<AccountFormType>({
   ...defaultForm,
   ...props.initialData,
 });
+
+const selectTypeOptions = [
+  { label: "LDAP", value: "LDAP" },
+  { label: "Локальная", value: "Локальная" },
+];
 </script>
 
 <template>
-  <form action="" class="account-form">
-    <div class="account-form__field">
-      <label for="tags"><span>Метки</span></label>
-      <input type="text" id="tags" />
-    </div>
-    <div class="account-form__field">
-      <label for="type">
-        <span>Тип записи</span>
-      </label>
-      <select name="type" id="type"></select>
-    </div>
-    <div class="account-form__field">
-      <label for="login">
-        <span>Логин</span>
-      </label>
-      <input type="text" id="login" />
-    </div>
-    <div class="account-form__field">
-      <label for="password">
-        <span>Пароль</span>
-      </label>
-      <input type="text" id="password" />
-    </div>
-    <button class="delete-btn">Icon</button>
-  </form>
+  <n-form
+    :model="form"
+    ref="formRef"
+    class="account-form"
+    label-placement="top"
+  >
+    <n-form-item label="Метки" path="rawLabels">
+      <n-input v-model:value="form.rawLabels" maxlength="50"></n-input>
+    </n-form-item>
+    <n-form-item label="Тип записи" path="type">
+      <n-select
+        v-model:value="form.type"
+        :options="selectTypeOptions"
+      ></n-select>
+    </n-form-item>
+    <n-form-item label="Логин" path="login">
+      <n-input v-model:value="form.login" maxlength="100"></n-input>
+    </n-form-item>
+    <n-form-item
+      v-if="form.type === 'Локальная'"
+      label="Пароль"
+      path="password"
+    >
+      <n-input
+        v-model:value="form.password"
+        type="password"
+        maxlength="100"
+      ></n-input>
+    </n-form-item>
+    <n-button type="error" text class="account-form__del-btn">Удалить</n-button>
+  </n-form>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .account-form {
+  display: flex;
+  gap: 10px;
+
+  .n-form-item-feedback-wrapper {
+    display: none;
+  }
+
+  &__del-btn {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 15px 0;
+  }
+
   &:not(:first-of-type) {
-    label span {
-      display: none;
+    .n-form-item {
+      grid-template-rows: 1fr;
+    }
+
+    label {
+      height: 0px;
+      max-height: 0px;
+      min-height: 0px;
+      padding: 0px;
+      visibility: hidden;
     }
   }
 }
