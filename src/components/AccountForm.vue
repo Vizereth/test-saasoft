@@ -55,6 +55,7 @@ const selectTypeOptions = [
       <n-input
         v-model:value="form.password"
         type="password"
+        show-password-on="click"
         maxlength="100"
       ></n-input>
     </n-form-item>
