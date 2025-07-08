@@ -27,12 +27,16 @@ import AccountForm from "./components/AccountForm.vue";
 .content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px;
 
   &__header {
     display: flex;
     align-items: center;
     gap: 10px;
+
+    h1 {
+        font-size: 2rem;
+    }
   }
 
   &__add-btn {

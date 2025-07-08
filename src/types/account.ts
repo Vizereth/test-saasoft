@@ -1,8 +1,10 @@
-export type AccountType = {
+export type AccountType = "LDAP" | "Локальная";
+
+export type AccountFormType = {
   id: string;
-  rawLabel: string;
-  label: { text: string }[];
-  type: "LDAP" | "Локальная";
+  rawLabels: string;
+  labels: { text: string }[];
+  type: string;
   login: string;
   password: string | null;
   isValid: boolean;
