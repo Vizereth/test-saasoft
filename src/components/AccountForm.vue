@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted } from "vue";
+import { ref, reactive, watch, onMounted, computed } from "vue";
 import { NForm, NFormItem, NInput, NSelect, NButton } from "naive-ui";
+import type { FormRules } from "naive-ui";
 import { v4 as uuidv4 } from "uuid";
-import type { AccountFormType, AccountType } from "../types/account";
+import type { AccountFormType } from "../types/account";
 
 const props = defineProps<{ initialData?: Partial<AccountFormType> }>();
 const formRef = ref();
@@ -26,6 +27,15 @@ const selectTypeOptions = [
   { label: "LDAP", value: "LDAP" },
   { label: "Локальная", value: "Локальная" },
 ];
+
+const validationRules = computed<FormRules>(() => ({
+  login: {
+    required: true,
+    trigger: ["blur"],
+  },
+  password:
+    form.type === "Локальная" ? { required: true, trigger: ["blur"] } : {},
+}));
 </script>
 
 <template>
@@ -34,6 +44,7 @@ const selectTypeOptions = [
     ref="formRef"
     class="account-form"
     label-placement="top"
+    :rules="validationRules"
   >
     <n-form-item label="Метки" path="rawLabels">
       <n-input v-model:value="form.rawLabels" maxlength="50"></n-input>
@@ -44,13 +55,14 @@ const selectTypeOptions = [
         :options="selectTypeOptions"
       ></n-select>
     </n-form-item>
-    <n-form-item label="Логин" path="login">
+    <n-form-item label="Логин" path="login" :show-feedback="false">
       <n-input v-model:value="form.login" maxlength="100"></n-input>
     </n-form-item>
     <n-form-item
       v-if="form.type === 'Локальная'"
       label="Пароль"
       path="password"
+      :show-feedback="false"
     >
       <n-input
         v-model:value="form.password"
