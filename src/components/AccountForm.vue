@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch, onMounted, computed } from "vue";
 import { NForm, NFormItem, NInput, NSelect, NButton } from "naive-ui";
+import { TrashIcon } from "@heroicons/vue/24/outline";
 import type { FormRules } from "naive-ui";
 import { v4 as uuidv4 } from "uuid";
 import type { AccountFormType } from "../types/account";
@@ -71,7 +72,9 @@ const validationRules = computed<FormRules>(() => ({
         maxlength="100"
       ></n-input>
     </n-form-item>
-    <n-button type="error" text class="account-form__del-btn">Удалить</n-button>
+    <n-button type="error" text class="account-form__del-btn"
+      ><TrashIcon
+    /></n-button>
   </n-form>
 </template>
 
@@ -87,7 +90,12 @@ const validationRules = computed<FormRules>(() => ({
   &__del-btn {
     display: flex;
     align-items: flex-end;
-    padding: 0 0 15px 0;
+    padding: 0 0 7px 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   &:not(:first-of-type) {
