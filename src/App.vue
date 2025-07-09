@@ -1,8 +1,20 @@
 <script setup lang="ts">
 import AccountForm from "./components/AccountForm.vue";
+import { QuestionMarkCircleIcon, PlusIcon } from "@heroicons/vue/24/outline";
 import { useAccountStore } from "./stores/accountStore";
+import { v4 as uuidv4 } from "uuid";
 
 const accountStore = useAccountStore();
+
+const defaultForm = {
+  id: uuidv4(),
+  rawLabels: "",
+  labels: [],
+  type: "Локальная",
+  login: "",
+  password: null,
+  isValid: false,
+};
 </script>
 
 <template>
@@ -10,10 +22,15 @@ const accountStore = useAccountStore();
     <main class="content">
       <div class="content__header">
         <h1>Учётные записи</h1>
-        <button class="content__add-btn">+</button>
+        <button
+          class="content__add-btn"
+          @click="accountStore.addAccount(defaultForm)"
+        >
+          <PlusIcon />
+        </button>
       </div>
       <div class="content__tip">
-        <div class="content__tip-icon">?</div>
+        <div class="content__tip-icon"><QuestionMarkCircleIcon /></div>
         <p class="content__tip-text">
           Для указания нескольких меток для одной пары логин/пароль используйте
           разделитель ;
@@ -42,32 +59,47 @@ const accountStore = useAccountStore();
     align-items: center;
     gap: 10px;
 
+    button {
+      color: black;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid black;
+      border-radius: 5px;
+      transition: opacity 0.15s ease-out;
+
+      &:hover {
+        opacity: 0.5;
+      }
+
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
     h1 {
       font-size: 2rem;
     }
   }
 
-  &__add-btn {
-    border: 2px solid rgba(0, 0, 0, 0.6);
-    border-radius: 5px;
-    width: 35px;
-    height: 35px;
-  }
-
   &__tip {
+    color: black;
     display: flex;
     align-items: center;
     gap: 10px;
 
     &-icon {
-      border-radius: 50%;
-      border: 2px solid rgba(0, 0, 0, 0.6);
-      font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 30px;
-      height: 30px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
     }
 
     &-text {
