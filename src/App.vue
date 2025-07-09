@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import AccountForm from "./components/AccountForm.vue";
+import { useAccountStore } from "./stores/accountStore";
+
+const accountStore = useAccountStore();
 </script>
 
 <template>
@@ -17,11 +20,11 @@ import AccountForm from "./components/AccountForm.vue";
         </p>
       </div>
       <div class="content__main">
-        <!-- <AccountForm
-          v-for="(form, index) in accountForms"
-          :key="form.id"
-          :initial-data="form"
-        /> -->
+        <AccountForm
+          v-for="acc in accountStore.accounts"
+          :key="acc.id"
+          :initialData="acc"
+        />
         <AccountForm />
       </div>
     </main>
