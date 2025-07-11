@@ -27,6 +27,7 @@ const validationRules = computed<FormRules>(() => ({
   password:
     form.type === "Локальная" ? { required: true, trigger: ["blur"] } : {},
 }));
+
 </script>
 
 <template>
@@ -38,7 +39,11 @@ const validationRules = computed<FormRules>(() => ({
     :rules="validationRules"
   >
     <n-form-item label="Метки" path="rawLabels">
-      <n-input v-model:value="form.rawLabels" maxlength="50"></n-input>
+      <n-input
+        v-model:value="form.rawLabels"
+        maxlength="50"
+        placeholder="Значение"
+      ></n-input>
     </n-form-item>
     <n-form-item label="Тип записи" path="type">
       <n-select
@@ -47,7 +52,11 @@ const validationRules = computed<FormRules>(() => ({
       ></n-select>
     </n-form-item>
     <n-form-item label="Логин" path="login" :show-feedback="false">
-      <n-input v-model:value="form.login" maxlength="100"></n-input>
+      <n-input
+        v-model:value="form.login"
+        maxlength="100"
+        placeholder="Значение"
+      ></n-input>
     </n-form-item>
     <n-form-item
       v-if="form.type === 'Локальная'"
@@ -60,9 +69,14 @@ const validationRules = computed<FormRules>(() => ({
         type="password"
         show-password-on="click"
         maxlength="100"
+        placeholder="Значение"
       ></n-input>
     </n-form-item>
-    <n-button type="error" text class="account-form__del-btn" @click="() => accountStore.removeAccount(form.id)"
+    <n-button
+      type="error"
+      text
+      class="account-form__del-btn"
+      @click="() => accountStore.removeAccount(form.id)"
       ><TrashIcon
     /></n-button>
   </n-form>
