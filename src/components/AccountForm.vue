@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted, computed } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 import { NForm, NFormItem, NInput, NSelect, NButton } from "naive-ui";
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import type { FormRules } from "naive-ui";
 import type { AccountFormType } from "../types/account";
 import { useAccountStore } from "../stores/accountStore";
+import { parseLabels } from "../utils/parseLabels";
 
 const accountStore = useAccountStore();
 const props = defineProps<{ initialData: AccountFormType }>();
@@ -28,6 +29,30 @@ const validationRules = computed<FormRules>(() => ({
     form.type === "Локальная" ? { required: true, trigger: ["blur"] } : {},
 }));
 
+watch(
+  form,
+  (updatedForm) => {
+    accountStore.updateAccount({ ...updatedForm });
+    console.log(updatedForm);
+  },
+  { deep: true, immediate: true }
+);
+
+watch(
+  () => form.rawLabels,
+  (updatedLabels) => {
+    form.labels = parseLabels(updatedLabels);
+  }
+);
+
+watch(
+  () => form.type,
+  (newType) => {
+    if (newType === "LDAP") {
+      form.password = null;
+    }
+  }
+);
 </script>
 
 <template>
