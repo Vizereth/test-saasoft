@@ -10,7 +10,7 @@ export const useAccountStore = defineStore("accounts", () => {
   };
 
   const removeAccount = (id: string) =>
-    accounts.value.filter((item) => item.id !== id);
+    accounts.value = accounts.value.filter((item) => item.id !== id);
 
   const updateAccount = (acc: AccountFormType) => {
     const i = accounts.value.findIndex((item) => item.id === acc.id);

@@ -3,24 +3,14 @@ import { ref, reactive, watch, onMounted, computed } from "vue";
 import { NForm, NFormItem, NInput, NSelect, NButton } from "naive-ui";
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import type { FormRules } from "naive-ui";
-import { v4 as uuidv4 } from "uuid";
 import type { AccountFormType } from "../types/account";
+import { useAccountStore } from "../stores/accountStore";
 
-const props = defineProps<{ initialData?: Partial<AccountFormType> }>();
+const accountStore = useAccountStore();
+const props = defineProps<{ initialData: AccountFormType }>();
 const formRef = ref();
 
-const defaultForm = {
-  id: uuidv4(),
-  rawLabels: "",
-  labels: [],
-  type: "Локальная",
-  login: "",
-  password: null,
-  isValid: false,
-};
-
 const form = reactive<AccountFormType>({
-  ...defaultForm,
   ...props.initialData,
 });
 
@@ -72,7 +62,7 @@ const validationRules = computed<FormRules>(() => ({
         maxlength="100"
       ></n-input>
     </n-form-item>
-    <n-button type="error" text class="account-form__del-btn"
+    <n-button type="error" text class="account-form__del-btn" @click="() => accountStore.removeAccount(form.id)"
       ><TrashIcon
     /></n-button>
   </n-form>
@@ -91,6 +81,7 @@ const validationRules = computed<FormRules>(() => ({
     display: flex;
     align-items: flex-end;
     padding: 0 0 7px 0;
+    @include hover-opacity;
 
     svg {
       width: 20px;

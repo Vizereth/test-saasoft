@@ -3,18 +3,9 @@ import AccountForm from "./components/AccountForm.vue";
 import { QuestionMarkCircleIcon, PlusIcon } from "@heroicons/vue/24/outline";
 import { useAccountStore } from "./stores/accountStore";
 import { v4 as uuidv4 } from "uuid";
+import { defaultForm } from "./config/defaultForm";
 
 const accountStore = useAccountStore();
-
-const defaultForm = {
-  id: uuidv4(),
-  rawLabels: "",
-  labels: [],
-  type: "Локальная",
-  login: "",
-  password: null,
-  isValid: false,
-};
 </script>
 
 <template>
@@ -24,7 +15,7 @@ const defaultForm = {
         <h1>Учётные записи</h1>
         <button
           class="content__add-btn"
-          @click="accountStore.addAccount(defaultForm)"
+          @click="accountStore.addAccount({ ...defaultForm, id: uuidv4() })"
         >
           <PlusIcon />
         </button>
@@ -42,7 +33,6 @@ const defaultForm = {
           :key="acc.id"
           :initialData="acc"
         />
-        <AccountForm />
       </div>
     </main>
   </div>
@@ -68,11 +58,7 @@ const defaultForm = {
       justify-content: center;
       border: 2px solid black;
       border-radius: 5px;
-      transition: opacity 0.15s ease-out;
-
-      &:hover {
-        opacity: 0.5;
-      }
+      @include hover-opacity;
 
       svg {
         width: 15px;
