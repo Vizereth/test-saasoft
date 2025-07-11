@@ -29,14 +29,10 @@ const validationRules = computed<FormRules>(() => ({
     form.type === "Локальная" ? { required: true, trigger: ["blur"] } : {},
 }));
 
-watch(
-  form,
-  (updatedForm) => {
-    accountStore.updateAccount({ ...updatedForm });
-    console.log(updatedForm);
-  },
-  { deep: true, immediate: true }
-);
+watch(form, (updatedForm) => accountStore.updateAccount({ ...updatedForm }), {
+  deep: true,
+  immediate: true,
+});
 
 watch(
   () => form.rawLabels,
@@ -76,7 +72,12 @@ watch(
         :options="selectTypeOptions"
       ></n-select>
     </n-form-item>
-    <n-form-item label="Логин" path="login" :show-feedback="false">
+    <n-form-item
+      label="Логин"
+      path="login"
+      :show-feedback="false"
+      class="account-form__login-field"
+    >
       <n-input
         v-model:value="form.login"
         maxlength="100"
@@ -114,6 +115,16 @@ watch(
 
   .n-form-item-feedback-wrapper {
     display: none;
+  }
+
+  .n-form-item {
+    width: 100%;
+    min-width: 200px;
+    max-width: 200px;
+  }
+
+  .n-form-item.account-form__login-field {
+    max-width: 100%;
   }
 
   &__del-btn {

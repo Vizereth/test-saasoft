@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { defaultForm } from "./config/defaultForm";
 import AccountForm from "./components/AccountForm.vue";
-import { QuestionMarkCircleIcon, PlusIcon } from "@heroicons/vue/24/outline";
+import { LightBulbIcon, PlusIcon } from "@heroicons/vue/24/outline";
 import { useAccountStore } from "./stores/accountStore";
 import { v4 as uuidv4 } from "uuid";
-import { defaultForm } from "./config/defaultForm";
 
 const accountStore = useAccountStore();
 </script>
@@ -21,7 +21,7 @@ const accountStore = useAccountStore();
         </button>
       </div>
       <div class="content__tip">
-        <div class="content__tip-icon"><QuestionMarkCircleIcon /></div>
+        <div class="content__tip-icon"><LightBulbIcon /></div>
         <p class="content__tip-text">
           Для указания нескольких меток для одной пары логин/пароль используйте
           разделитель ;
@@ -56,13 +56,23 @@ const accountStore = useAccountStore();
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid black;
+      border: 2px solid rgb(41, 41, 41);
       border-radius: 5px;
-      @include hover-opacity;
+      transition: all 0.1s ease-out;
+
+      &:hover {
+        border: 2px solid rgb(95, 190, 95);
+        background: rgb(95, 190, 95);
+
+        svg {
+          color: white;
+        }
+      }
 
       svg {
         width: 15px;
         height: 15px;
+        transition: color 0.1s ease-out;
       }
     }
 
@@ -72,10 +82,13 @@ const accountStore = useAccountStore();
   }
 
   &__tip {
-    color: black;
+    color: rgb(41, 41, 41);
     display: flex;
     align-items: center;
     gap: 10px;
+    background-color: rgb(245, 244, 244);
+    border-radius: 5px;
+    padding: 5px 5px 5px 10px;
 
     &-icon {
       display: flex;
@@ -83,8 +96,8 @@ const accountStore = useAccountStore();
       justify-content: center;
 
       svg {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
       }
     }
 
